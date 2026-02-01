@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:3000
+
+### Root Endpoint
+GET {{baseUrl}}/
+
+### Example Post Request (Placeholder)
+# POST {{baseUrl}}/summarize
+# Content-Type: application/json
+# 
+# {
+#     "url": "https://www.youtube.com/watch?v=..."
+# }
+
+
+POST {{baseUrl}}/api/summrize
+Content-Type: application/json
+
+{
+    "url":"https://www.youtube.com/watch?v=ZyYqyYAKGC0"
+}
