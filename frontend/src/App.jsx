@@ -20,8 +20,13 @@ function App() {
     setSummary("");
 
     try {
-      // Assuming backend is running on localhost:3000
-      const response = await axios.post("http://localhost:3000/api/summrize", {
+      // Use production URL if in production, otherwise localhost
+      // You can also use explicit environment variables if preferred
+      const API_BASE_URL = import.meta.env.DEV
+        ? "http://localhost:3000"
+        : "https://youtube-video-summarize.onrender.com";
+
+      const response = await axios.post(`${API_BASE_URL}/api/summrize`, {
         url: url,
       });
 
