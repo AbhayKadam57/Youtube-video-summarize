@@ -7,12 +7,16 @@ import { fileURLToPath } from 'url';
 import { exec } from "child_process";
 import util from "util";
 
+import { platform } from 'os';
+
 const execPromise = util.promisify(exec);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Path to yt-dlp binary (assuming it's in the backend root, one level up from controllers)
-const ytDlpPath = path.join(__dirname, '..', 'yt-dlp.exe');
+const isWindows = platform() === 'win32';
+const binaryName = isWindows ? 'yt-dlp.exe' : 'yt-dlp';
+const ytDlpPath = path.join(__dirname, '..', binaryName);
 
 export const getSummrize = async (req, res) => {
     const { url } = req.body;
