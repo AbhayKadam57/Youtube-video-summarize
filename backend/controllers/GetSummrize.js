@@ -33,7 +33,10 @@ export const getSummrize = async (req, res) => {
             console.log('Transcript unavailable or empty, falling back to audio via yt-dlp...', e.message);
 
             if (!fs.existsSync(ytDlpPath)) {
-                throw new Error("yt-dlp.exe not found. Please run setup_ytdlp.js");
+                // List files in directory for debugging if fails
+                const rootFiles = fs.readdirSync(path.join(__dirname, '..'));
+                console.error(`Binary not found: ${ytDlpPath}. Files in root: ${rootFiles.join(', ')}`);
+                throw new Error(`Audio download binary (${binaryName}) not found. Please run setup_ytdlp.js`);
             }
 
             const timestamp = Date.now();
