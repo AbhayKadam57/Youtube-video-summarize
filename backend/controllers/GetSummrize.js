@@ -46,9 +46,11 @@ export const getSummrize = async (req, res) => {
             // -f bestaudio: Get best quality audio
             // --no-playlist: Ensure single video
             // -o ...: Output template
-            // --extractor-args "youtube:player_client=android": Bypass some bot checks
-            const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
-            const command = `"${ytDlpPath}" -f bestaudio --no-playlist -o "${outputTemplate}" --user-agent "${userAgent}" --extractor-args "youtube:player_client=android" "${url}"`;
+            // --extractor-args "youtube:player_client=ios": Bypass some bot checks (ios often works better than android on servers)
+            // --js-runtimes node: Use Node.js for JS execution (critical for avoiding 'Sign in' errors on server IPs)
+            // --force-ipv4: Force IPv4 usage (helps with some datacenter IP blocks)
+            const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1';
+            const command = `"${ytDlpPath}" -f bestaudio --no-playlist --force-ipv4 -o "${outputTemplate}" --user-agent "${userAgent}" --extractor-args "youtube:player_client=ios" --js-runtimes node "${url}"`;
 
             console.log("Executing:", command);
             await execPromise(command);
