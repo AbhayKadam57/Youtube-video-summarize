@@ -15,7 +15,7 @@ const limiter = rateLimit({
     legacyHeaders: false,
 })
 
-router.post("/summrize", limiter, getSummrize)
+router.post("/summrize", getSummrize)
 
 
 export default router

@@ -46,7 +46,9 @@ export const getSummrize = async (req, res) => {
             // -f bestaudio: Get best quality audio
             // --no-playlist: Ensure single video
             // -o ...: Output template
-            const command = `"${ytDlpPath}" -f bestaudio --no-playlist -o "${outputTemplate}" "${url}"`;
+            // --extractor-args "youtube:player_client=android": Bypass some bot checks
+            const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+            const command = `"${ytDlpPath}" -f bestaudio --no-playlist -o "${outputTemplate}" --user-agent "${userAgent}" --extractor-args "youtube:player_client=android" "${url}"`;
 
             console.log("Executing:", command);
             await execPromise(command);
